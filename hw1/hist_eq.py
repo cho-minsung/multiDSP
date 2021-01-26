@@ -1,16 +1,18 @@
-import cv2
+from PIL import Image
+from libtiff import TIFFfile, TIFFimage
 import numpy as np
 from matplotlib import pyplot as plt
 
-img = cv2.imread('\hw1\sample_images\jetplane.tif',0)
+infile = TIFFfile.open('hw1\sample_images\jetplane.tif')
+# outfile = TIFF.'hw1\sample_images\jetplane_out.png'
 
-hist,bins = np.histogram(img.flatten(),256,[0,256])
+# def make_histogram(img):
+#     histogram = np.zeros(256, dtype=int)
+#     for i in range(img.size):
+#         histogram[img[i]] += 1
+#     return histogram
 
-cdf = hist.cumsum()
-cdf_normalized = cdf * hist.max()/ cdf.max()
+img = Image.open(infile)
+img_w, img_h = img.size
 
-plt.plot(cdf_normalized, color = 'b')
-plt.hist(img.flatten(),256,[0,256], color = 'r')
-plt.xlim([0,256])
-plt.legend(('cdf','histogram'), loc = 'upper left')
-plt.show()
+print(img_h, img_w)
