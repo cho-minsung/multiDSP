@@ -5,8 +5,8 @@ import numpy as np
 import math
 
 # Setting the input and output files.
-IN_FILE = 'hw1/sample_images/jetplane.png'
-OUT_FILE = 'hw1/sample_images/jetplane_64.png'
+IN_FILE = 'sample_images/jetplane.png'
+OUT_FILE = 'sample_images/jetplane_64.png'
 
 # # Set the bin size
 # bin = 256
@@ -86,8 +86,16 @@ x_axis = np.arange(256)
 fig = plt.figure()
 fig.add_subplot(2, 2, 1)
 a = plt.bar(x_axis, histogram)
-a = plt.title('before')
+a = plt.title('histogram before')
 fig.add_subplot(2, 2, 2)
 b = plt.bar(x_axis, hist_out, color="orange")
-b = plt.title('after')
+b = plt.title('histogram with bin size 64')
+fig.add_subplot(2, 2, 3)
+orig_img = mpimg.imread(IN_FILE)
+c = plt.imshow(orig_img, cmap='gray')
+c = plt.title('Original Image')
+fig.add_subplot(2, 2, 4)
+eq_img = mpimg.imread(OUT_FILE)
+d = plt.imshow(eq_img, cmap='gray')
+d = plt.title('Equalized image with bin size 64')
 plt.show()
