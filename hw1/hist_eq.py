@@ -4,13 +4,13 @@ import matplotlib.image as mpimg
 import numpy as np
 
 # Setting the input and output files.
-IN_FILE = '/home/minsung/multiDSP/hw1/sample_images/jetplane.png'
+IN_FILE = 'hw1/sample_images/jetplane.png'
 # OUT_FILE = 'hw1\sample_images\jetplane_output64.png'
 
 # # Set the bin size
-bin = 256   #8 bit
+# bin = 256   #8 bit
 # bin = 128 #7 bit
-# bin = 64  #6 bit
+bin = 64  #6 bit
 
 # # make cumulative sum
 # def make_cumsum(histogram):
@@ -46,9 +46,38 @@ histogram = np.zeros(256, dtype=int)
 for i in range(img.size):
     histogram[img[i]] += 1
 
-# divide the histogram into bin size
-if bin = 128:
-    for i in range(0, 128, 2)
+indices = np.zeros(64, dtype=int)
+for i in range(64):
+    indices[i] = 1 + indices[i-1]
+print(indices)
+
+# Divide the histogram into bin sizes and get the intensity distribution.
+# if bin == 256: # 8 bit
+#     p256 = np.zeros(8, dtype=int)
+#     for i in range(8):
+#         p256[i] = histogram[0:63].sum()
+# elif bin == 128: # 7 bit
+#     p128 = np.zeros(7, dtype=int)
+#     for i in range(7):
+#         for j in range(int(512*(i+1)/7)):
+#             p128[i] += histogram[j-1]
+# elif bin == 64: # 6 bit
+#     p64 = np.zeros(6, dtype=int)
+#     for i in range(6):
+#         for j in range(int(512*(i+1)/6)):
+#             p64[i] += histogram[j-1]
+
+# print(p256)
+
+# Get transformation function
+# s256 = np.zeros(256, dtype=int)
+# if bin == 128:
+#     s128 = np.zeros(7, dtype=int)
+#     for i in range(7):
+        
+# s64 = np.zeros(64, dtype=int)
+
+
     
 # cumsum = make_cumsum(histogram)
 # mapping = make_mapping(cumsum)
