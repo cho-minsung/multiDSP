@@ -19,12 +19,11 @@ def make_box(i, j, box):
     return box
 
 # Setting the input and output files.
-IN_FILE = 'hw1/sample_images/SJEarthquakesteampic.jpg'
-THRESHOLD_OUT_FILE = 'hw1/sample_images/SJEarthquakesteampic_threshold.jpg'
-EROSION_OUT_FILE = 'hw1/sample_images/SJEarthquakesteampic_erosion.jpg'
-DILATION_OUT_FILE = 'hw1/sample_images/SJEarthquakesteampic_dilation.jpg'
-MORPHOLOGY_OUT_FILE = 'hw1/sample_images/SJEarthquakesteampic_morphology.jpg'
-BOXED_OUT_FILE = 'hw1/sample_images/SJEarthquakesteampic_boxed.jpg'
+IN_FILE = 'hw1/sample_images/barcelona-team.jpg'
+THRESHOLD_OUT_FILE = 'hw1/sample_images/barcelona-team_threshold.jpg'
+EROSION_OUT_FILE = 'hw1/sample_images/barcelona-team_erosion.jpg'
+DILATION_OUT_FILE = 'hw1/sample_images/barcelona-team_dilation.jpg'
+BOXED_OUT_FILE = 'hw1/sample_images/barcelona-team_boxed.jpg'
 
 # Loading the image and converting to array
 pillow_img = Image.open(IN_FILE)

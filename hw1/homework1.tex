@@ -1,0 +1,259 @@
+\documentclass[letterpaper,11pt]{article}
+
+
+\usepackage[left=1in,top=0.75in,right=1in,bottom=1.0in]{geometry} 
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{multirow}
+\setlength{\headheight}{15.2pt}
+\setlength{\footskip}{30pt}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\rhead{ECG782: \term}
+\lhead{Multidimensional DSP}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.0pt} %remove separating line
+\renewcommand{\footrulewidth}{0.4pt}
+
+\usepackage{graphicx}	%for including images
+\usepackage{amsmath}	%better math
+\usepackage{amssymb}	%more math
+%\usepackage{textcomp} 	%more symbols
+\usepackage{subcaption}	%subfigure support
+\usepackage{url}		%properly format urls
+\usepackage{enumerate}	%better control of enumerate style
+\usepackage{mathtools}	%better math
+\usepackage{booktabs}	%nice tables
+\usepackage{hyperref}	%adding links
+
+%disable bookmarks in adobe pdf viewers
+\hypersetup{pdfpagemode=UseNone}
+
+\usepackage[numbered,framed]{matlab-prettifier}	%nice Matlab code
+%Matlab-prettifier settings
+\lstset{
+  style              = Matlab-editor,
+%  basicstyle         = \mlttfamily,
+  escapechar         = ",
+  mlshowsectionrules = true,
+}
+
+%avoid indentation
+\parindent=0pt
+
+%include extra defines for dates
+\input{_dates.tex}
+
+
+\begin{document}
+
+\begin{center}
+Homework \#1\\
+Due \hwone
+\end{center}
+
+Be sure to show all your work for credit.  You must turn in your code as well as output files (\textbf{code attached at the end of the report}).  \\[1pt]
+
+Please generate a report that contains the code and output in a single readable format using Latex.
+
+\begin{enumerate}
+
+%\setcounter{enumi}{-1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item Getting Started
+
+\begin{enumerate}
+\item Determine how you will use Latex, either:
+
+\begin{itemize}
+\item download Latex for your platform. Windows users can download \href{http://miktex.org/}{MiKTeX} or \href{https://tug.org/texlive/}{TeX Live}.  
+\item {[preferred]} utilize an online Latex editor.  \href{https://www.overleaf.com/}{Overleaf} is recommended.
+\end{itemize}
+
+\item Download the ``standard'' test images from the Gonzalez and Woods website. 
+
+\url{http://www.imageprocessingplace.com/root_files_V3/image_databases.htm}
+
+\item Download the sample images from the class website.
+
+\url{http://www.ee.unlv.edu/~b1morris/ecg782/hw/hw01}
+
+\item Indicate the method you have selected for Latex use.
+
+\item Generate your report using the article class.  Many tutorials exist like \\\url{http://www.latex-tutorial.com/tutorials/}.
+
+\end{enumerate}
+
+\textbf{Solution}
+
+\begin{enumerate}
+\item I am using Overleaf
+\item Images downloaded
+\item Images downloaded
+\item I am using Overleaf
+\item This is the template file.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item Histogram Equalization
+
+\begin{enumerate}
+\item Write a function \texttt{hist\_eq.m} that performs histogram equalization on an intensity image.  The function should take as inputs an intensity image and the number of gray level value bins. Create a separate m-file for this function.  
+
+\item Perform histogram equalization on the jetplane image using 256, 128, and 64 bins.  Compare the original image and the histogram equalized images by plotting the corresponding histograms and images side-by-side in a $2\times2$ subplot matrix.
+
+\item Perform the equalization in $32\times32$ blocks.  Display the output image.  You will find \texttt{blockproc.m} useful. 
+
+\end{enumerate}
+
+\textbf{Solution}
+
+\begin{enumerate}
+\item Matlab code can be entered as in the following.  Copy your code directly into the \texttt{lstlisting} environment.  You may not need to indicate Matlab as the language depending on your system setup.
+
+\begin{lstlisting}[language=Matlab]
+% name_of_file_function.m
+s = load('TIMIT.ASC');
+x = s/max(s) + 0.02*randn(size(s));
+
+scale = 8;
+fs = 8000;
+win = 2^scale;
+alphas = 1/2^(scale-4);
+alphal = 1/2^(scale-1);
+betal = 5;
+
+%fft params
+N = round(length(x)/win);
+delf = fs/win;
+K1 = find(delf*(0:N-1)>=300,1);
+K2 = find(delf*(0:N-1)>1000,1)-1;
+\end{lstlisting}
+
+\item This problem requires you to generate a $2\times2$ subplot.  This can be done in Matlab directly (include a single image) or create four output images and organize in Latex.  The advantage of the second is the ability to sub reference plots.  
+
+The below is a quick way to include an image.  This does not give a lot of control on placement on the page.  In general, Latex can be a little funny about image placement so don't expect it to work as well as Word.
+
+{\centering
+\includegraphics[width=0.32\linewidth, viewport=82 179 520 612, clip]{images/canny_wire01}\\
+}
+
+\item More often I would suggest to include the image within a Figure environment in order to isolate it as a ``float'' element and to have captions and labels for referencing.  An example is below in Fig. \ref{fig:01}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.32\linewidth, viewport=82 179 520 612, clip]{images/canny_wire01}
+\caption{Example of a floating figure environment where the optional parameters controls placement. [!htp] indicates trying to force a placement here in the page while t and b are for top and bottom of a page}
+\label{fig:01}
+\end{figure}
+
+
+\item Another example of a Figure with multiple images is shown in Fig. \ref{fig:canny_wire}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.32\linewidth, viewport=82 179 520 612, clip]{images/canny_wire01}
+\includegraphics[width=0.32\linewidth, viewport=82 179 520 612, clip]{images/canny_wire02}
+\includegraphics[width=0.32\linewidth, viewport=82 179 520 612, clip]{images/canny_wire03}\\
+\includegraphics[width=0.32\linewidth, viewport=82 179 520 612, clip]{images/canny_wire04}
+\includegraphics[width=0.32\linewidth, viewport=82 179 520 612, clip]{images/canny_wire05}
+\includegraphics[width=0.32\linewidth, viewport=82 179 520 612, clip]{images/canny_wire06}
+\caption{Top Row: $\tau=0.8$ and $\sigma=\{0.5, 1.0, 3.0\}$ Bottom Row: $\tau=0.6$ and $\sigma=\{0.5, 1.0, 3.0\}$}
+\label{fig:canny_wire}
+\end{figure}
+
+\item Finally, you can use \texttt{subcaption} to have labels and references to parts of a multi image Figure. 
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.32\linewidth}
+        \includegraphics[width=\textwidth]{images/canny_wire01}
+        \caption{Wire01}
+        \label{fig:wire01}
+    \end{subfigure}
+    %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.32\linewidth}
+        \includegraphics[width=\textwidth]{images/canny_wire02}
+        \caption{Wire02}
+        \label{fig:wire02}
+    \end{subfigure}
+    %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.3\linewidth}
+        \includegraphics[width=\textwidth]{images/canny_wire03}
+        \caption{Wire03}
+        \label{fig:wire03}
+    \end{subfigure}
+    \caption{Example of image with subfigures. \subref{fig:wire01} You can get just the letter with \texttt{{\textbackslash}subref}.  Notice this version does not use the viewport option which is useful when inserting a pdf to remove whitespace.}
+    \label{fig:subfig}
+\end{figure}
+
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item Basic Morphology
+
+\begin{enumerate}
+
+\item Threshold the image \texttt{SJEarthquakesteampic.jpg} to detect faces.  Be sure to describe how you obtained your threshold.  You may find this is easier in another colorspace such as HSV.
+
+\item Use morphological operations to clean the image.  Count the number of players in the cleaned threshold image.  
+
+\item Create an output image that has a bounding box around each face.  Use \texttt{regionprops.m}.  In your report, create an output figure with three images in a row.  (a) is the face threshold image, (b) morphologically cleaned image, and (c) the color image with bounding box around face areas.
+
+\item Repeat for \texttt{barcelona-team.jpg}.  Explain the differences you found.
+
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+\item Filtering
+
+\begin{enumerate}
+\item Consider image \texttt{DSCN0479-001.JPG} as a perfect image.  Add white Gaussian noise with variance 0.005.  Smooth with a $3\times3$ and $7\times7$ box filter and a median filter.  Compute the mean squared error (MSE)
+
+$$MSE = \frac{1}{MN}\sum_m \sum_n (I_1(m,n) - I_2(m,n))^2 $$ 
+
+and the peak signal-to-noise ratio (PSNR) 
+
+$$PSNR = 20 \times \log_{10}(255/ \sqrt{MSE}) $$
+
+for the noise reduced images.  Compile results using a Latex Table.  Which filter has the best results based on the error measures?  How do the results compare visually?  
+
+\item Repeat (a) with salt and pepper noise with noise density $0.05$.   Compile results using a Latex Table.  
+
+\item Do the filtering again but this time on a real noisy image \texttt{DSCN0482-001.JPG} obtained at higher ISO.  Compare the results visually only this time.  Which filter works best for ``real'' noise?  How much time does each type of filter require (use \texttt{tick.m} and \texttt{toc.m})?
+
+\end{enumerate}
+
+\textbf{Solution}
+
+Here is an example of a Latex Table (Table \ref{tab:table}).  Note: the caption typically goes above the Table in our publications.  I highly recommend building it either directly in an online table generator (e.g. \href{https://www.tablesgenerator.com/}{website}) or building in Excel and copying into the table generator.  Once you get the hang of it you can probably build directly in Latex.  And if you want to be really clever, you can setup your Matlab script to format and generate the table for you.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[!hb]
+\centering
+\caption{An example Table with caption on top}
+\label{tab:table}
+\begin{tabular}{@{}lll@{}}
+\toprule
+head1 & head1 & head3 \\ 
+\midrule
+1     & 2     & 3     \\
+4     & 5     & 6     \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\end{enumerate}
+
+
+\end{document}
