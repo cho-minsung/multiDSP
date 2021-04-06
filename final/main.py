@@ -1,5 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, QMenuBar
+import tensorflow as tf
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon
 
 
@@ -10,15 +12,17 @@ class MainWindow(QMainWindow):
 
     def _initialize_ui(self):
         """Initialize the window and display its contents to the screen."""
-        self.setMinimumSize(500, 400)
-        self.setWindowTitle("Motorcycle Garage Door Opener 1.0")
+        self.setMinimumSize(1280, 720)
+        self.setWindowTitle("Motorcycle Detector 1.0")
         self.setWindowIcon(QIcon("images/ducati.png"))
         self._setup_gui()
         self.show()
 
     def _setup_gui(self):
         """Set up the toolbar, input video, and output video"""
+        self._create_content_layout()
         self._create_menu_bar()
+        self._create_status_bar()
 
     def _create_menu_bar(self):
         menu_bar = QMenuBar(self)
@@ -32,6 +36,17 @@ class MainWindow(QMainWindow):
         menu_bar.addMenu(file_menu)
         menu_bar.addMenu(tools_menu)
         menu_bar.addMenu(help_menu)
+
+    def _create_content_layout(self):
+        content = QHBoxLayout(self)
+        self.setLayout(content)
+
+    def _create_status_bar(self):
+        status_bar = QStatusBar(self)
+        tensorflow_ver_lb = QLabel("TensorFlow version: " + tf.__version__)
+        status_bar.addPermanentWidget(tensorflow_ver_lb)
+        self.setStatusBar(status_bar)
+
 
 # Run main event loop
 if __name__ == '__main__':
