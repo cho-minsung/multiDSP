@@ -1,13 +1,11 @@
 import sys
-import os
-import glob
+
 import tensorflow as tf
 from tensorflow.keras import layers
 import pathlib
 import matplotlib.pyplot as plt
-from PyQt5 import QtGui
+import numpy as np
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 
 
@@ -121,7 +119,7 @@ class MainWindow(QMainWindow):
         num_classes = 5
 
         model = tf.keras.Sequential([
-            layers.experimental.preprocessing.Rescaling(1. / 255, input_shape=(img_height, img_width, 3)),
+            layers.experimental.preprocessing.Rescaling(1. / 255, input_shape=(self.img_height, self.img_width, 3)),
             layers.Conv2D(16, 3, padding='same', activation='relu'),
             layers.MaxPooling2D(),
             layers.Conv2D(32, 3, padding='same', activation='relu'),
@@ -149,6 +147,9 @@ class MainWindow(QMainWindow):
             epochs=epochs
         )
 
+        # Save the model
+        model.save('final/')
+
         # Visualize training results
         acc = history.history['accuracy']
         val_acc = history.history['val_accuracy']
@@ -172,6 +173,23 @@ class MainWindow(QMainWindow):
         plt.title('Training and Validation Loss')
         plt.show()
 
+        # Predict the image
+        sunflower_url = "https://media.discordapp.net/attachments/568165469115383810/832131144022622208/DzVE5ITVsAELcu7.jpg"
+        sunflower_path = tf.keras.utils.get_file('Red_sunflower', origin=sunflower_url)
+
+        img = tf.keras.preprocessing.image.load_img(
+            sunflower_path, target_size=(self.img_height, self.img_width)
+        )
+        img_array = tf.keras.preprocessing.image.img_to_array(img)
+        img_array = tf.expand_dims(img_array, 0)  # Create a batch
+
+        predictions = model.predict(img_array)
+        score = tf.nn.softmax(predictions[0])
+
+        print(
+            "This image most likely belongs to {} with a {:.2f} percent confidence."
+                .format(class_names[np.argmax(score)], 100 * np.max(score))
+        )
 
 
 if __name__ == '__main__':
