@@ -1,0 +1,26 @@
+<annotation>
+	<folder>fail</folder>
+	<filename>triumph3_frame208.png</filename>
+	<path>D:\Photos_and_videos\motorcycle\garage_door_opener_project\motorcycle\fail\triumph3_frame208.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2400</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>other bike</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>618</xmin>
+			<ymin>403</ymin>
+			<xmax>801</xmax>
+			<ymax>582</ymax>
+		</bndbox>
+	</object>
+</annotation>

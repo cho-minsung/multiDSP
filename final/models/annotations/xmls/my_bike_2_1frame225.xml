@@ -1,0 +1,26 @@
+<annotation>
+	<folder>pass</folder>
+	<filename>my_bike_2_1frame225.png</filename>
+	<path>D:\Photos_and_videos\motorcycle\garage_door_opener_project\motorcycle\pass\my_bike_2_1frame225.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>my bike</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>517</xmin>
+			<ymin>553</ymin>
+			<xmax>717</xmax>
+			<ymax>761</ymax>
+		</bndbox>
+	</object>
+</annotation>

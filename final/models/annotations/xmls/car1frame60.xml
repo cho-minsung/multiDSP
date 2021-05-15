@@ -1,0 +1,26 @@
+<annotation>
+	<folder>fail</folder>
+	<filename>car1frame60.png</filename>
+	<path>D:\Photos_and_videos\motorcycle\garage_door_opener_project\motorcycle\fail\car1frame60.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>car</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>236</xmin>
+			<ymin>367</ymin>
+			<xmax>527</xmax>
+			<ymax>496</ymax>
+		</bndbox>
+	</object>
+</annotation>
